@@ -1,0 +1,8 @@
+src/modules/company/company.controller.spec.ts
+src/modules/company/company.service.ts
+src/modules/company/company.service.spec.ts
+src/modules/company/company.module.ts
+src/modules/company/company.controller.ts
+src/modules/company/entities/company.entity.ts
+src/modules/company/prisma/company.repository.ts
+src/modules/company/dto/create-company.dto.ts

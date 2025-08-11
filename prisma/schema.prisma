@@ -13,8 +13,38 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model Company {
-  id        Int     @id @default(autoincrement())
-  name      String
-  createdAt DateTime @default(now())
+
+model IdentificationType {
+  id   Int    @id @default(autoincrement())
+  name String
+  users User[]
+  // companies Company[]
+}
+
+model UserType {
+  id    Int    @id @default(autoincrement())
+  name  String @unique // 'normal' o 'empresa'
+  users User[]
+}
+
+model User {
+  id                      Int                  @id @default(autoincrement())
+  username                String               @unique
+  userTypeId              Int
+  userType                UserType             @relation(fields: [userTypeId], references: [id])
+  identificationTypeId    Int
+  identificationType      IdentificationType   @relation(fields: [identificationTypeId], references: [id])
+  identificationNumber    String
+  firstName               String
+  lastName                String
+  phone                   String
+  email                   String   @unique
+  password                String
+  photo                   String?  @db.LongText // URL, base64 o ruta de la foto
+  identificationDocument  String?  @db.LongText // URL, base64 o ruta del PDF
+  // Campos de empresa
+  companyName             String? // Razón social
+  companyTradeName        String? // Nombre comercial
+  companyLegalType        String? // Tipo de sociedad
+  companyLegalStatus      String? // Estado legal
 }
